@@ -250,7 +250,7 @@ def trigger(trigger, startTime,loopCount):
         return "\n" + errors
 
 def sinus(har, radius, sinheight):
-    x1 = np.linspace(0, 6.1, har)
+    x1 = np.linspace(0, sinheight, har)
     y1 = np.sin(x1)
     sinus = plt.plot(x1, y1, 'bo')
     ysinus = sinus[0].get_ydata()*radius
@@ -272,7 +272,7 @@ def circle(har, radius):
         ycircle[index] = val.get_ydata()
     return ycircle, xcircle
 
-def spectrum(wav_file,mi,mx,har,start,end,gap,posX,posY,arrange,radius=30,sinheight=6.1):
+def spectrum(wav_file,mi,mx,har,start,end,gap=0,posX,posY,layer,origin,arrange="",radius=30,sinheight=6.1):
     frame_rate, snd = wavfile.read(wav_file)
     sound_info = snd[:,0]
     spectrum, freqs, t, im = plt.specgram(sound_info,NFFT=1024,Fs=frame_rate,noverlap=5,mode='magnitude')
@@ -300,9 +300,10 @@ def spectrum(wav_file,mi,mx,har,start,end,gap,posX,posY,arrange,radius=30,sinhei
         lastval = ((spectrum[n][0]-minimum)/(maximum - minimum))*(mx-mi)+mi
         lastval = math.ceil(lastval*1000)/1000
         lasttime = int(round(t[0]*1000))
-        obj[n] = stat("bar.png","Foreground","BottomLeft",posX+position*gap+int(round(float(cirpos[n]))),posY+int(round(float(sinpos[n]))))
+        obj[n] = stat("bar.png",layer,origin,posX+position*gap+int(round(float(cirpos[n]))),posY+int(round(float(sinpos[n]))))
         position += 1
-        obj[n] += rotate(0,start,start,math.ceil((1.5707+n*rotation)*1000)/1000,math.ceil((1.5707+n*rotation)*1000)/1000)
+        if arrange is "circle":
+            obj[n] += rotate(0,start,start,math.ceil((1.5707+n*rotation)*1000)/1000,math.ceil((1.5707+n*rotation)*1000)/1000)
         obj[n] += fade(0,start,start+1000,0,1)
         obj[n] += fade(0,end-1000,end,1,0)
         for index,power in enumerate(spectrum[n]):
