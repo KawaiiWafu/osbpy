@@ -272,7 +272,7 @@ def circle(har, radius):
         ycircle[index] = val.get_ydata()
     return ycircle, xcircle
 
-def spectrum(wav_file,mi,mx,har,start,end,gap=0,posX,posY,layer,origin,arrange="",radius=30,sinheight=6.1):
+def spectrum(wav_file,mi,mx,har,start,end,posX,posY,layer,origin,gap=0,arrange="",radius=30,sinheight=6.1):
     frame_rate, snd = wavfile.read(wav_file)
     sound_info = snd[:,0]
     spectrum, freqs, t, im = plt.specgram(sound_info,NFFT=1024,Fs=frame_rate,noverlap=5,mode='magnitude')
@@ -304,8 +304,8 @@ def spectrum(wav_file,mi,mx,har,start,end,gap=0,posX,posY,layer,origin,arrange="
         position += 1
         if arrange is "circle":
             obj[n] += rotate(0,start,start,math.ceil((1.5707+n*rotation)*1000)/1000,math.ceil((1.5707+n*rotation)*1000)/1000)
-        obj[n] += fade(0,start,start+1000,0,1)
-        obj[n] += fade(0,end-1000,end,1,0)
+        #obj[n] += fade(0,start,start+1000,0,1)
+        #obj[n] += fade(0,end-1000,end,1,0)
         for index,power in enumerate(spectrum[n]):
             power = ((power-minimum)/(maximum - minimum))*(mx-mi)+mi
             power = math.ceil(power*1000)/1000
