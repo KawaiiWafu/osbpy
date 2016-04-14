@@ -32,6 +32,12 @@ def circle(har, radius):
         ycircle[index] = val.get_ydata()
     return ycircle, xcircle
 
+def check_easing(es):
+    if es not in range(35):
+        return True
+    else:
+        return False
+
 class osbject:
     obj = []
     def __init__(self, path, layer, origin, posX, posY, framecount=None, framerate=None, loop=None):
@@ -70,7 +76,7 @@ class osbject:
     def fade(self, easing,startTime,endTime,startFade,endFade,loop = False):
         valid = True
         errors = ""
-        if easing not in range(35):
+        if check_easing(easing):
             errors += "Invalid Easing! "
             valid = False
         if not isinstance(startTime, int) or not isinstance(endTime, int) or endTime < startTime:
@@ -90,7 +96,7 @@ class osbject:
     def move(self, easing,startTime,endTime,startmoveX,startmoveY,endmoveX,endmoveY,loop = False):
         valid = True
         errors = ""
-        if easing not in range(35):
+        if check_easing(easing):
             errors += "Invalid Easing! "
             valid = False
         if not isinstance(startTime, int) or not isinstance(endTime, int) or endTime < startTime:
@@ -110,7 +116,7 @@ class osbject:
     def moveX(self, easing,startTime,endTime,startmoveX,endmoveX,loop = False):
         valid = True
         errors = ""
-        if easing not in range(35):
+        if check_easing(easing):
             errors += "Invalid Easing! "
             valid = False
         if not isinstance(startTime, int) or not isinstance(endTime, int) or endTime < startTime:
@@ -130,7 +136,7 @@ class osbject:
     def moveY(self, easing,startTime,endTime,startmoveY,endmoveY,loop = False):
         valid = True
         errors = ""
-        if easing not in range(35):
+        if check_easing(easing):
             errors += "Invalid Easing! "
             valid = False
         if not isinstance(startTime, int) or not isinstance(endTime, int) or endTime < startTime:
@@ -150,7 +156,7 @@ class osbject:
     def scale(self, easing,startTime,endTime,startScale,endScale,loop = False):
         valid = True
         errors = ""
-        if easing not in range(35):
+        if check_easing(easing):
             errors += "Invalid Easing! "
             valid = False
         if not isinstance(startTime, int) or not isinstance(endTime, int) or endTime < startTime:
@@ -170,7 +176,7 @@ class osbject:
     def vecscale(self, easing,startTime,endTime,startscaleX,startscaleY,endscaleX,endscaleY,loop = False):
         valid = True
         errors = ""
-        if easing not in range(35):
+        if check_easing(easing):
             errors += "Invalid Easing! "
             valid = False
         if not isinstance(startTime, int) or not isinstance(endTime, int) or endTime < startTime:
@@ -190,7 +196,7 @@ class osbject:
     def rotate(self, easing,startTime,endTime,startRotate,endRotate,loop = False):
         valid = True
         errors = ""
-        if easing not in range(35):
+        if check_easing(easing):
             errors += "Invalid Easing! "
             valid = False
         if not isinstance(startTime, int) or not isinstance(endTime, int) or endTime < startTime:
@@ -210,7 +216,7 @@ class osbject:
     def color(self, easing,startTime,endTime,startR,startG,startB,endR,endG,endB,loop = False):
         valid = True
         errors = ""
-        if easing not in range(35):
+        if check_easing(easing):
             errors += "Invalid Easing! "
             valid = False
         if not isinstance(startTime, int) or not isinstance(endTime, int) or endTime < startTime:
@@ -230,7 +236,7 @@ class osbject:
     def para(self, easing,startTime,endTime,parameter):
         valid = True
         errors = ""
-        if easing not in range(35):
+        if check_easing(easing):
             errors += "Invalid Easing! "
             valid = False
         if not isinstance(startTime, int) or not isinstance(endTime, int) or endTime < startTime:
