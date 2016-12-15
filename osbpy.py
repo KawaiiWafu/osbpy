@@ -122,86 +122,144 @@ class osbject:
             else:
                 self.props.append("".join(errors))
 
-    def fade(self, easing,startTime,endTime,startFade,endFade,loop = False):
+    def fade(self,easing,startTime,endTime,startFade,endFade,loop = False):
         errors = []
         valid = error_check(errors,easing=easing,startTime=startTime,endTime=endTime,startFade=startFade,endFade=endFade)
+        if startTime == endTime:
+            endTime = ""
         if valid:
             if loop:
-                self.props.append("\n  F,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startFade, endFade))
+                if startFade == endFade:
+                    self.props.append("\n  F,%s,%s,%s,%s" % (easing, startTime, endTime, startFade))
+                else:
+                    self.props.append("\n  F,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startFade, endFade))
             else:
-                self.props.append("\n F,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startFade, endFade))
+                if startFade == endFade:
+                    self.props.append("\n F,%s,%s,%s,%s" % (easing, startTime, endTime, startFade))
+                else:
+                    self.props.append("\n F,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startFade, endFade))
         else:
             self.props.append("\n" + "".join(errors))
 
     def move(self, easing,startTime,endTime,startmoveX,startmoveY,endmoveX,endmoveY,loop = False):
         errors = []
         valid = error_check(errors,posX=startmoveX,posY=startmoveY,posX2=endmoveX,posY2=endmoveY,easing=easing,startTime=startTime,endTime=endTime)
+        if startTime == endTime:
+            endTime = ""
         if valid:
             if loop:
-                self.props.append("\n  M,%s,%s,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startmoveX, startmoveY, endmoveX, endmoveY))
+                if startmoveX == endmoveX and startmoveY == endmoveY:
+                    self.props.append("\n  M,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startmoveX, startmoveY))
+                else:
+                    self.props.append("\n  M,%s,%s,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startmoveX, startmoveY, endmoveX, endmoveY))
             else:
-                self.props.append("\n M,%s,%s,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startmoveX, startmoveY, endmoveX, endmoveY))
+                if startmoveX == endmoveX and startmoveY == endmoveY:
+                    self.props.append("\n M,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startmoveX, startmoveY))
+                else:
+                    self.props.append("\n M,%s,%s,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startmoveX, startmoveY, endmoveX, endmoveY))
         else:
             self.props.append("\n" + "".join(errors))
 
     def moveX(self, easing,startTime,endTime,startmoveX,endmoveX,loop = False):
         errors = []
         valid = error_check(errors,posX=startmoveX,posY=endmoveX,easing=easing,startTime=startTime,endTime=endTime)
+        if startTime == endTime:
+            endTime = ""
         if valid:
             if loop:
-                self.props.append("\n  MX,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startmoveX, endmoveX))
+                if startmoveX == endmoveX:
+                    self.props.append("\n  MX,%s,%s,%s,%s" % (easing, startTime, endTime, startmoveX))
+                else:
+                    self.props.append("\n  MX,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startmoveX, endmoveX))
             else:
-                self.props.append("\n MX,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startmoveX, endmoveX))
+                if startmoveX == endmoveX:
+                    self.props.append("\n MX,%s,%s,%s,%s" % (easing, startTime, endTime, startmoveX))
+                else:
+                    self.props.append("\n MX,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startmoveX, endmoveX))
         else:
             self.props.append("\n" + "".join(errors))
 
     def moveY(self, easing,startTime,endTime,startmoveY,endmoveY,loop = False):
         errors = []
         valid = error_check(errors,posX=startmoveY,posY=endmoveY,easing=easing,startTime=startTime,endTime=endTime)
+        if startTime == endTime:
+            endTime = ""
         if valid:
             if loop:
-                self.props.append("\n  MY,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startmoveY, endmoveY))
+                if startmoveY == endmoveY:
+                    self.props.append("\n  MY,%s,%s,%s,%s" % (easing, startTime, endTime, startmoveY))
+                else:
+                    self.props.append("\n  MY,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startmoveY, endmoveY))
             else:
-                self.props.append("\n MY,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startmoveY, endmoveY))
+                if startmoveY == endmoveY:
+                    self.props.append("\n MY,%s,%s,%s,%s" % (easing, startTime, endTime, startmoveY))
+                else:
+                    self.props.append("\n MY,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startmoveY, endmoveY))
         else:
             self.props.append("\n" + "".join(errors))
 
     def scale(self, easing,startTime,endTime,startScale,endScale,loop = False):
         errors = []
         valid = error_check(errors,startFade=startScale,endFade=endScale,easing=easing,startTime=startTime,endTime=endTime)
+        if startTime == endTime:
+            endTime = ""
         if valid:
             if loop:
-                self.props.append("\n  S,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startScale, endScale))
+                if startScale == endScale:
+                    self.props.append("\n  S,%s,%s,%s,%s" % (easing, startTime, endTime, startScale))
+                else:
+                    self.props.append("\n  S,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startScale, endScale))
             else:
-                self.props.append("\n S,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startScale, endScale))
+                if startScale == endScale:
+                    self.props.append("\n S,%s,%s,%s,%s" % (easing, startTime, endTime, startScale))
+                else:
+                    self.props.append("\n S,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startScale, endScale))
         else:
             self.props.append("\n" + "".join(errors))
 
     def vecscale(self, easing,startTime,endTime,startscaleX,startscaleY,endscaleX,endscaleY,loop = False):
         errors = []
         valid = error_check(errors,startFade=startscaleX,endFade=startscaleY,startFade2=endscaleX,endFade2=endscaleY,easing=easing,startTime=startTime,endTime=endTime)
+        if startTime == endTime:
+            endTime = ""
         if valid:
             if loop:
-                self.props.append("\n  V,%s,%s,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startscaleX, startscaleY, endscaleX, endscaleY))
+                if startscaleX == endscaleX and startscaleY == endscaleY:
+                    self.props.append("\n  V,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startscaleX, startscaleY))
+                else:
+                    self.props.append("\n  V,%s,%s,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startscaleX, startscaleY, endscaleX, endscaleY))
             else:
-                self.props.append("\n V,%s,%s,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startscaleX, startscaleY, endscaleX, endscaleY))
+                if startscaleX == endscaleX and startscaleY == endscaleY:
+                    self.props.append("\n V,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startscaleX, startscaleY))
+                else:
+                    self.props.append("\n V,%s,%s,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startscaleX, startscaleY, endscaleX, endscaleY))
         else:
             self.props.append("\n" + "".join(errors))
 
     def rotate(self, easing,startTime,endTime,startRotate,endRotate,loop = False):
         errors = []
         valid = error_check(errors,easing=easing,startTime=startTime,endTime=endTime,startFade=startRotate,endFade=endRotate)
+        if startTime == endTime:
+            endTime = ""
         if valid:
             if loop:
-                self.props.append("\n  R,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startRotate, endRotate))
+                if startRotate == endRotate:
+                    self.props.append("\n  R,%s,%s,%s,%s" % (easing, startTime, endTime, startRotate))
+                else:
+                    self.props.append("\n  R,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startRotate, endRotate))
             else:
-                self.props.append("\n R,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startRotate, endRotate))
+                if startRotate == endRotate:
+                    self.props.append("\n R,%s,%s,%s,%s" % (easing, startTime, endTime, startRotate))
+                else:
+                    self.props.append("\n R,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startRotate, endRotate))
         else:
             self.props.append("\n" + "".join(errors))
 
     def colour(self, easing,startTime,endTime,startR,startG,startB,endR,endG,endB,loop = False):
         errors = []
         valid = error_check(errors,easing=easing,startTime=startTime,endTime=endTime)
+        if startTime == endTime:
+            endTime = ""
         if startR is not None:
             if startR not in range(256):
                 errors.append("Invalid Colour!")
@@ -222,15 +280,23 @@ class osbject:
                 errors.append("Invalid Colour!")
         if valid:
             if loop:
-                self.props.append("\n  C,%s,%s,%s,%s,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startR, startG, startB, endR, endG, endB))
+                if startR == endR and startG == endG and startB == endB:
+                    self.props.append("\n  C,%s,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startR, startG, startB))
+                else:
+                    self.props.append("\n  C,%s,%s,%s,%s,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startR, startG, startB, endR, endG, endB))
             else:
-                self.props.append("\n C,%s,%s,%s,%s,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startR, startG, startB, endR, endG, endB))
+                if startR == endR and startG == endG and startB == endB:
+                    self.props.append("\n C,%s,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startR, startG, startB))
+                else:
+                    self.props.append("\n C,%s,%s,%s,%s,%s,%s,%s,%s,%s" % (easing, startTime, endTime, startR, startG, startB, endR, endG, endB))
         else:
             self.props.append("\n" + "".join(errors))
 
     def para(self, easing,startTime,endTime,parameter):
         errors = []
         valid = error_check(errors,easing=easing,startTime=startTime,endTime=endTime)
+        if startTime == endTime:
+            endTime = ""
         if parameter not in ["H", "V", "A"]:
             errors.append("Invalid Parameter!")
             valid = False
