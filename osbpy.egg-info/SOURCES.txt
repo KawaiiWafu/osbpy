@@ -1,0 +1,11 @@
+LICENSE
+MANIFEST.in
+README.md
+README.rst
+setup.py
+osbpy/osbpy.py
+osbpy.egg-info/PKG-INFO
+osbpy.egg-info/SOURCES.txt
+osbpy.egg-info/dependency_links.txt
+osbpy.egg-info/requires.txt
+osbpy.egg-info/top_level.txt
