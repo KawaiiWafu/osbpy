@@ -28,7 +28,7 @@ This library requires:
 * numpy 1.10.4+ + MKL
 * matplotlib 1.5.1+
 * scipy 0.17.0+
-  All these libraries can be easily installed with pip except for numpy+mkl. You will need to get it from an external source, such as https://www.lfd.uci.edu/~gohlke/pythonlibs/ or you can use the Intel® Distribution for Python* which includes all of the required libraries.
+  All these libraries can be easily installed with pip except for numpy+mkl. You will need to get it from an external source, such as https://www.lfd.uci.edu/~gohlke/pythonlibs/ or you can use the Intel&reg; Distribution for Python* which includes all of the required libraries.
 
 Installation
 ============
