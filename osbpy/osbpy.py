@@ -4,30 +4,35 @@ import math
 import numpy as np
 from scipy.io import wavfile
 
+
 def sinus(har, radius, sinheight):
     x1 = np.linspace(0, sinheight, har)
     y1 = np.sin(x1)
     sinus = plt.plot(x1, y1, 'bo')
-    ysinus = sinus[0].get_ydata()*radius
+    ysinus = sinus[0].get_ydata() * radius
     return ysinus
+
 
 def gencircle(r, n):
     for i in range(len(r)):
         for j in range(n[i]):
-            yield r[i], j*(2 * np.pi / n[i])
+            yield r[i], j * (2 * np.pi / n[i])
+
 
 def circle(har, radius):
     circle = []
     xcircle = {}
     ycircle = {}
-    for r, t in gencircle([2*radius], [har]):
+    for r, t in gencircle([2 * radius], [har]):
         circle += plt.plot(r * np.cos(t), r * np.sin(t), 'bo')
     for index, val in enumerate(circle):
         xcircle[index] = val.get_xdata()
         ycircle[index] = val.get_ydata()
     return ycircle, xcircle
 
-def error_check(errors,path=None,layer=None,origin=None,posX=None,posY=None,posX2=None,posY2=None,easing=None,framecount=None,framerate=None,loop=None,startTime=None,endTime=None,startFade=None,endFade=None,startFade2=None,endFade2=None):
+
+# Lazy
+def error_check(errors, path=None, layer=None, origin=None, posX=None, posY=None, posX2=None, posY2=None, easing=None, framecount=None, framerate=None, loop=None, startTime=None, endTime=None, startFade=None, endFade=None, startFade2=None, endFade2=None):
     valid = True
     if path is not None:
         if type(path) is not str:
@@ -70,7 +75,7 @@ def error_check(errors,path=None,layer=None,origin=None,posX=None,posY=None,posX
             errors.append("Invalid Frame rate! ")
             valid = False
     if loop is not None:
-        if loop not in ["LoopForever","LoopOnce"]:
+        if loop not in ["LoopForever", "LoopOnce"]:
             errors.append("Invalid Type! ")
             valid = False
     if startTime is not None:
@@ -99,6 +104,7 @@ def error_check(errors,path=None,layer=None,origin=None,posX=None,posY=None,posX
             valid = False
     return valid
 
+
 class osbject:
     obj_background = []
     obj_fail = []
@@ -109,7 +115,7 @@ class osbject:
         osbject.obj_link[layer].append(self)
         self.props = []
         errors = []
-        valid = error_check(errors,path=path,layer=layer,origin=origin,posX=posX,posY=posY,framecount=framecount,framerate=framerate,loop=loop)
+        valid = error_check(errors, path=path, layer=layer, origin=origin, posX=posX, posY=posY, framecount=framecount, framerate=framerate, loop=loop)
         if framecount is not None and framerate is not None and loop is not None:
             if valid:
                 self.props.append("Animation,%s,%s,%s,%s,%s,%s,%s,%s" % (layer, origin, path, posX, posY, framecount, framerate, loop))
@@ -121,9 +127,10 @@ class osbject:
             else:
                 self.props.append("".join(errors))
 
-    def fade(self,easing,startTime,endTime,startFade,endFade,loop = False):
+
+    def fade(self, easing, startTime, endTime, startFade, endFade, loop=False):
         errors = []
-        valid = error_check(errors,easing=easing,startTime=startTime,endTime=endTime,startFade=startFade,endFade=endFade)
+        valid = error_check(errors, easing=easing, startTime=startTime, endTime=endTime, startFade=startFade, endFade=endFade)
         if startTime == endTime:
             endTime = ""
         if valid:
@@ -140,9 +147,10 @@ class osbject:
         else:
             self.props.append("\n" + "".join(errors))
 
-    def move(self, easing,startTime,endTime,startmoveX,startmoveY,endmoveX,endmoveY,loop = False):
+
+    def move(self, easing, startTime, endTime, startmoveX, startmoveY, endmoveX, endmoveY, loop=False):
         errors = []
-        valid = error_check(errors,posX=startmoveX,posY=startmoveY,posX2=endmoveX,posY2=endmoveY,easing=easing,startTime=startTime,endTime=endTime)
+        valid = error_check(errors, posX=startmoveX, posY=startmoveY, posX2=endmoveX, posY2=endmoveY, easing=easing, startTime=startTime, endTime=endTime)
         if startTime == endTime:
             endTime = ""
         if valid:
@@ -159,9 +167,10 @@ class osbject:
         else:
             self.props.append("\n" + "".join(errors))
 
-    def moveX(self, easing,startTime,endTime,startmoveX,endmoveX,loop = False):
+
+    def moveX(self, easing, startTime, endTime, startmoveX, endmoveX, loop = False):
         errors = []
-        valid = error_check(errors,posX=startmoveX,posY=endmoveX,easing=easing,startTime=startTime,endTime=endTime)
+        valid = error_check(errors, posX=startmoveX, posY=endmoveX, easing=easing, startTime=startTime, endTime=endTime)
         if startTime == endTime:
             endTime = ""
         if valid:
@@ -178,9 +187,10 @@ class osbject:
         else:
             self.props.append("\n" + "".join(errors))
 
-    def moveY(self, easing,startTime,endTime,startmoveY,endmoveY,loop = False):
+
+    def moveY(self, easing, startTime, endTime, startmoveY, endmoveY, loop = False):
         errors = []
-        valid = error_check(errors,posX=startmoveY,posY=endmoveY,easing=easing,startTime=startTime,endTime=endTime)
+        valid = error_check(errors, posX=startmoveY, posY=endmoveY, easing=easing, startTime=startTime, endTime=endTime)
         if startTime == endTime:
             endTime = ""
         if valid:
@@ -197,9 +207,10 @@ class osbject:
         else:
             self.props.append("\n" + "".join(errors))
 
-    def scale(self, easing,startTime,endTime,startScale,endScale,loop = False):
+
+    def scale(self, easing, startTime, endTime, startScale, endScale, loop = False):
         errors = []
-        valid = error_check(errors,startFade=startScale,endFade=endScale,easing=easing,startTime=startTime,endTime=endTime)
+        valid = error_check(errors, startFade=startScale, endFade=endScale, easing=easing, startTime=startTime, endTime=endTime)
         if startTime == endTime:
             endTime = ""
         if valid:
@@ -216,9 +227,10 @@ class osbject:
         else:
             self.props.append("\n" + "".join(errors))
 
-    def vecscale(self, easing,startTime,endTime,startscaleX,startscaleY,endscaleX,endscaleY,loop = False):
+
+    def vecscale(self, easing, startTime, endTime, startscaleX, startscaleY, endscaleX, endscaleY, loop = False):
         errors = []
-        valid = error_check(errors,startFade=startscaleX,endFade=startscaleY,startFade2=endscaleX,endFade2=endscaleY,easing=easing,startTime=startTime,endTime=endTime)
+        valid = error_check(errors, startFade=startscaleX, endFade=startscaleY, startFade2=endscaleX, endFade2=endscaleY, easing=easing, startTime=startTime, endTime=endTime)
         if startTime == endTime:
             endTime = ""
         if valid:
@@ -235,9 +247,10 @@ class osbject:
         else:
             self.props.append("\n" + "".join(errors))
 
-    def rotate(self, easing,startTime,endTime,startRotate,endRotate,loop = False):
+
+    def rotate(self, easing, startTime, endTime, startRotate, endRotate, loop = False):
         errors = []
-        valid = error_check(errors,easing=easing,startTime=startTime,endTime=endTime,startFade=startRotate,endFade=endRotate)
+        valid = error_check(errors, easing=easing, startTime=startTime, endTime=endTime, startFade=startRotate, endFade=endRotate)
         if startTime == endTime:
             endTime = ""
         if valid:
@@ -254,9 +267,10 @@ class osbject:
         else:
             self.props.append("\n" + "".join(errors))
 
-    def colour(self, easing,startTime,endTime,startR,startG,startB,endR,endG,endB,loop = False):
+
+    def colour(self, easing, startTime, endTime, startR, startG, startB, endR, endG, endB, loop = False):
         errors = []
-        valid = error_check(errors,easing=easing,startTime=startTime,endTime=endTime)
+        valid = error_check(errors, easing=easing, startTime=startTime, endTime=endTime)
         if startTime == endTime:
             endTime = ""
         if startR is not None:
@@ -291,9 +305,10 @@ class osbject:
         else:
             self.props.append("\n" + "".join(errors))
 
-    def para(self, easing,startTime,endTime,parameter):
+
+    def para(self, easing, startTime, endTime, parameter):
         errors = []
-        valid = error_check(errors,easing=easing,startTime=startTime,endTime=endTime)
+        valid = error_check(errors, easing=easing, startTime=startTime, endTime=endTime)
         if startTime == endTime:
             endTime = ""
         if parameter not in ["H", "V", "A"]:
@@ -304,7 +319,8 @@ class osbject:
         else:
             self.props.append("\n" + "".join(errors))
 
-    def loop(self, startTime,loopCount):
+
+    def loop(self, startTime, loopCount):
         valid = True
         errors = []
         if not isinstance(startTime, int) or not isinstance(loopCount, int):
@@ -315,16 +331,17 @@ class osbject:
         else:
             self.props.append("\n" + "".join(errors))
 
-    def trigger(self, trigger, startTime,loopCount):
+
+    def trigger(self, trigger, startTime, loopCount):
         errors = []
-        valid = error_check(errors,path=trigger,startTime=startTime,posX=loopCount)
+        valid = error_check(errors, path=trigger, startTime=startTime, posX=loopCount)
         if valid:
-            self.props.append("\n T,%s,%s,%s" % (trigger,startTime, loopCount))
+            self.props.append("\n T,%s,%s,%s" % (trigger, startTime, loopCount))
         else:
             self.props.append("\n" + "".join(errors))
 
     @classmethod
-    def end(cl,osbfile):
+    def end(cl, osbfile):
         if os.path.isfile(osbfile):
             os.remove(osbfile)
         with open(osbfile, "a") as text:
@@ -342,22 +359,23 @@ class osbject:
                 text.write("%s\n" % "".join(val.props))
             text.write("//Storyboard Sound Samples\n")
 
-def spectrum(wav_file,mi,mx,har,start,end,posX,posY,layer,origin,gap=0,arrange="",radius=30,sinheight=6.1):
+
+def spectrum(wav_file, mi, mx, har, start, end, posX, posY, layer, origin, gap=0, arrange="", radius=30, sinheight=6.1):
     spect = []
     frame_rate, snd = wavfile.read(wav_file)
     sound_info = snd[:,0]
-    spectrum, freqs, t, im = plt.specgram(sound_info,NFFT=1024,Fs=frame_rate,noverlap=5,mode='magnitude')
+    spectrum, freqs, t, im = plt.specgram(sound_info, NFFT=1024, Fs=frame_rate, noverlap=5, mode='magnitude')
     n = 0
     rotation = 6.2831
     sinpos = {}
     cirpos = {}
     if arrange is "sinus":
-        sinpos = sinus(har,radius,sinheight)
+        sinpos = sinus(har, radius, sinheight)
         for i in range(har):
             cirpos[i] = 0
     elif arrange is "circle":
         gap = 0
-        sinpos, cirpos = circle(har,radius)
+        sinpos, cirpos = circle(har, radius)
         rotation /= har
     else:
         for i in range(har):
@@ -368,22 +386,22 @@ def spectrum(wav_file,mi,mx,har,start,end,posX,posY,layer,origin,gap=0,arrange="
     minimum = plt.amin(spectrum)
     position = 0
     while n < har:
-        lastval = ((spectrum[n][0]-minimum)/(maximum - minimum))*(mx-mi)+mi
-        lastval = math.ceil(lastval*1000)/1000
-        lasttime = int(round(t[0]*1000))
-        spect.append(osbject("bar.png",layer,origin,posX+position*gap+int(round(float(cirpos[n]))),posY+int(round(float(sinpos[n])))))
+        lastval = ((spectrum[n][0] - minimum) / (maximum - minimum)) * (mx - mi) + mi
+        lastval = math.ceil(lastval * 1000) / 1000
+        lasttime = int(round(t[0] * 1000))
+        spect.append(osbject("bar.png", layer, origin, posX + position * gap + int(round(float(cirpos[n]))), posY + int(round(float(sinpos[n])))))
         position += 1
         if arrange is "circle":
-            spect[n].rotate(0,start,start,math.ceil((1.5707+n*rotation)*1000)/1000,math.ceil((1.5707+n*rotation)*1000)/1000)
-        for index,power in enumerate(spectrum[n]):
-            power = ((power-minimum)/(maximum - minimum))*(mx-mi)+mi
-            power = math.ceil(power*1000)/1000
-            if power == lastval or int(round(t[index]*1000)) < start or int(round(t[index]*1000)) > end or index % 2 is not 0:
-                lasttime = int(round(t[index]*1000))
+            spect[n].rotate(0, start, start, math.ceil((1.5707 + n * rotation) * 1000) / 1000, math.ceil((1.5707 + n * rotation) * 1000) / 1000)
+        for index, power in enumerate(spectrum[n]):
+            power = ((power - minimum) / (maximum - minimum)) * (mx - mi) + mi
+            power = math.ceil(power * 1000) / 1000
+            if power == lastval or int(round(t[index] * 1000)) < start or int(round(t[index] * 1000)) > end or index % 2 is not 0:
+                lasttime = int(round(t[index] * 1000))
                 continue
             else:
-                spect[n].vecscale(0,lasttime,int(round(t[index]*1000)),1,lastval,1,power)
+                spect[n].vecscale(0, lasttime, int(round(t[index] * 1000)), 1, lastval, 1, power)
                 lastval = power
-                lasttime = int(round(t[index]*1000))
+                lasttime = int(round(t[index] * 1000))
         n += 1
     return spect
