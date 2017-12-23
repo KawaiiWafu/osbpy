@@ -3,6 +3,7 @@ MANIFEST.in
 README.md
 README.rst
 setup.py
+osbpy/__init__.py
 osbpy/osbpy.py
 osbpy.egg-info/PKG-INFO
 osbpy.egg-info/SOURCES.txt
