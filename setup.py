@@ -12,7 +12,7 @@ classifiers = [
 
 setup(
     name="osbpy",
-    version="3.0.0",
+    version="3.0.1",
     packages=['osbpy'],
     include_package_data=True,
     install_requires=[

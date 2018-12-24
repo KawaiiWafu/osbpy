@@ -10,11 +10,11 @@ Of course. The library is using MIT license. As long as you follow its simple co
 If you want to modify other libraries that this library is using, please follow their license. This license only applies to files that are included on this repository.
 # Requirements
 This library requires:
-* Python (3.6+), I will always update osbpy to the newest version.
-* numpy 1.10.4+ + MKL
-* matplotlib 1.5.1+
-* scipy 0.17.0+
-All these libraries can be easily installed with pip except for numpy+mkl. You will need to get it from an external source, such as https://www.lfd.uci.edu/~gohlke/pythonlibs/ or you can use the Intel® Distribution for Python* which includes all of the required libraries.
+* Python (3.7+), I will always update osbpy to the newest version.
+* numpy 1.15.4+
+* matplotlib 3.0.2+
+* scipy 1.1.0+
+All these libraries can be easily installed with pip.
 
 # Installation
 

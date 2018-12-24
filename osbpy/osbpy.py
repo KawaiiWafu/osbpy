@@ -484,7 +484,7 @@ def spectrum(
     rotation = 6.2831
     sine_pos = {}
     circle_pos = {}
-    if arrange is "sinus":
+    if arrange is "sine":
         sine_pos = sine(har, radius, sine_height)
         for i in range(har):
             circle_pos[i] = 0
