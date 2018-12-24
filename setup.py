@@ -7,18 +7,18 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
 ]
 
 setup(
     name="osbpy",
-    version="2.1.0",
+    version="3.0.0",
     packages=['osbpy'],
     include_package_data=True,
     install_requires=[
-        'matplotlib>=2.1.0',
-        'numpy>=1.13.3+mkl',
-        'scipy>=1.0.0'
+        'matplotlib>=3.0.2',
+        'numpy>=1.15.4',
+        'scipy>=1.1.0'
     ],
     author="Jiri Olszar",
     author_email="remiliass@gmail.com",

@@ -1,6 +1,6 @@
 Metadata-Version: 1.2
 Name: osbpy
-Version: 2.1.0
+Version: 3.0.0
 Summary: Simple library for osu! storyboarding
 Home-page: https://github.com/KawaiiWafu/osbpy
 Author: Jiri Olszar
@@ -52,5 +52,5 @@ Classifier: Intended Audience :: Developers
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
 Classifier: Programming Language :: Python
-Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
 Requires-Python: >=3
